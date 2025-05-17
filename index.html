@@ -1,290 +1,289 @@
 <!doctype html>
-<html class="h-100" lang="en">
-
-  <head>
-      <meta charset="utf-8">
+<html lang="en" class="h-100">
+<head>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-  <meta name="description" content="rename multiple files at once based on their metadata">
+  <meta name="description" content="EXIFrenameX – Automate renaming of your photos and videos using metadata. Clean, powerful, open source.">
   <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="img/icon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="img/icon-16x16.png">
   <link rel="icon" type="image/png" sizes="96x96" href="img/favicon.png">
   <meta name="author" content="Tim Leinich">
-  <meta name="generator" content="Eleventy v2.0.0">
-  <meta name="HandheldFriendly" content="true">
-  <title>EXIFrenameX Home</title>
+  <title>EXIFrenameX – Effortless Batch Renaming</title>
   <link rel="stylesheet" href="css/theme.min.css">
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #15191e 60%, #24273a 100%);
+      color: #f4f5fa;
+      min-height: 100vh;
+    }
+    .custom-navbar {
+      width: 100vw;
+      background: #15191e;
+      box-shadow: 0 2px 16px rgba(30,40,50,0.13);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 56px 0 32px;
+      height: 64px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2000;
+      font-size: 1.28rem;
+    }
+    .custom-navbar .logo {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.7rem;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .custom-navbar .logo svg {
+      margin-right: 13px;
+    }
+    .custom-navbar .nav-links {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 46px;
+      height: 100%;
+    }
+    .custom-navbar .nav-links a {
+      color: #e6e7ef;
+      font-size: 1.19rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color .13s;
+      position: relative;
+      padding: 0 0 2px 0;
+    }
+    .custom-navbar .nav-links a:hover,
+    .custom-navbar .nav-links a:focus {
+      color: #36f1cd;
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+    @media (max-width: 1100px) {
+      .custom-navbar {
+        padding: 0 18px 0 8px;
+      }
+      .custom-navbar .nav-links { gap: 20px;}
+      .custom-navbar .logo { font-size: 1.08rem;}
+    }
+    @media (max-width: 650px) {
+      .custom-navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 0;
+        align-items: flex-start;
+      }
+      .custom-navbar .nav-links {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 12px;
+      }
+      .custom-navbar .logo { font-size: 1.01rem;}
+    }
+    .glass {
+      background: rgba(28, 28, 35, 0.85);
+      border-radius: 32px;
+      box-shadow: 0 8px 48px 0 rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(84,84,110,0.12);
+    }
+    .btn-exif {
+      background: linear-gradient(90deg, #36f1cd, #5b6eff 95%);
+      color: #171721;
+      font-weight: 700;
+      border-radius: 40px;
+      box-shadow: 0 4px 24px 0 rgba(54,241,205,0.12);
+      border: none;
+      transition: transform 0.13s;
+      padding: 18px 36px;
+      font-size: 1.35rem;
+      letter-spacing: 0.02em;
+    }
+    .btn-exif:hover {
+      transform: translateY(-3px) scale(1.03);
+      color: #fff;
+      background: linear-gradient(90deg, #5b6eff 20%, #36f1cd 100%);
+      box-shadow: 0 4px 32px 0 rgba(91,110,255,0.12);
+    }
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.07;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin-top: 2.5rem;
+    }
+    .hero-sub {
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: #b7c5d3;
+      margin-bottom: 2rem;
+    }
+    .showcase-img {
+      border-radius: 24px;
+      box-shadow: 0 4px 28px rgba(80,90,220,0.16);
+      margin: 10px 0;
+      background: #232940;
+    }
+    .section-title {
+      color: #5b6eff;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 1.7rem;
+    }
+    .feature-list li {
+      margin-bottom: 0.7em;
+      font-size: 1.1rem;
+    }
+    .release-box {
+      background: #1d2333;
+      border-radius: 18px;
+      padding: 18px 30px;
+      box-shadow: 0 2px 12px 0 rgba(91,110,255,0.09);
+      margin-bottom: 2.5rem;
+      color: #c7d0e1;
+    }
+    .github-link {
+      color: #36f1cd;
+      font-weight: 500;
+      text-decoration: underline dotted;
+      margin-left: 6px;
+    }
+    .footer-link {
+      color: #adb8c9;
+      transition: color .14s;
+    }
+    .footer-link:hover {
+      color: #36f1cd;
+    }
+  </style>
+</head>
+<body class="h-100" style="margin:0;">
 
-   <style>
-
-/* inter-300 - latin */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: local(''),
-       url('fonts/inter-v12-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('fonts/inter-v12-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-
-/* inter-400 - latin */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local(''),
-       url('fonts/inter-v12-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('fonts/inter-v12-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: local(''),
-       url('fonts/inter-v12-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('fonts/inter-v12-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local(''),
-       url('fonts/inter-v12-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('fonts/inter-v12-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-
-</style>
-  </head>
-
-  <body class="bg-black text-white mt-0" data-bs-spy="scroll" data-bs-target="#navScroll">
-
-    <nav id="navScroll" class="navbar navbar-dark bg-black fixed-top px-vw-5" tabindex="0">
-  <div class="container">
-    <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="index.html">
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stack" viewBox="0 0 16 16">
-    <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/>
-    <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/>
-  </svg>
-  <span class="ms-md-1 mt-1 fw-bolder me-md-5">EXIFrenameX</span>
-</a>
-
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 list-group list-group-horizontal">
-      <li class="nav-item">
-  <a class="nav-link fs-5" href="index.html" aria-label="EXIFrenameX Homepage">
-    Home
-  </a>
-</li>
-<li class="nav-item">
-  <a class="nav-link fs-5" href="content.html" aria-label="EXIFrenameX About">
-    Content
-  </a>
-</li>
-<li class="nav-item">
-  <a class="nav-link fs-5" href="https://github.com/Ch4r0ne/EXIFrenameX" aria-label="Github EXIFrenameX">
-    Github
-  </a>
-</li>
-    </ul>
-</div>
-</nav>
-
-    <main>
-      <div class="w-100 overflow-hidden position-relative bg-black text-white" data-aos="fade">
-  <div class="position-absolute w-100 h-100 bg-black opacity-75 top-0 start-0"></div>
-  <div class="container py-vh-4 position-relative mt-5 px-vw-5 text-center">
-  <div class="row d-flex align-items-center justify-content-center py-vh-5">
-    <div class="col-12 col-xl-10">
-      <span class="h5 text-secondary fw-lighter">Are you tired of having messy filenames for your images and videos?</span>
-      <h1 class="display-huge mt-3 mb-3 lh-1">Our app is the solution you need.</h1>
-    </div>
-    <div class="col-12 col-xl-8">
-      <p class="lead text-secondary">
-        <p class="lead text-secondary">With our easy-to-use interface, you can quickly and easily rename multiple files at once based on their metadata. Simply choose your desired format and let our app do the rest.</p>
-    </div>
-    <div class="col-12 text-center">
-        <a href="https://github.com/Ch4r0ne/EXIFrenameX/archive/refs/tags/v3.0.1.zip" class="btn btn-xl btn-light" download>
-          Download
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-</svg>
-</a>
+  <!-- Navbar: Logo links, Menüs rechts, wie Original -->
+  <div class="custom-navbar">
+    <a href="index.html" class="logo">
+      <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+        <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/>
+        <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/>
+      </svg>
+      EXIFrenameX
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="content.html">Content</a>
+      <a href="https://github.com/Ch4r0ne/EXIFrenameX" target="_blank">Github</a>
     </div>
   </div>
-</div>
 
-</div>
+  <!-- Abstand für die fixed Navbar -->
+  <div style="height:64px;"></div>
 
-<div class="w-100 position-relative bg-black text-white bg-cover d-flex align-items-center">
-  <div class="container-fluid px-vw-5">
-    <div class="position-absolute w-100 h-50 bg-dark bottom-0 start-0"></div>
-    <div class="row d-flex align-items-center position-relative justify-content-center px-0 g-5">
-      <div class="col-12 col-lg-6">
-        <img src="img/webp/gui_fileexplorer_dark.webp" width="2280" height="1732" alt="gui_fileexplorer_dark" class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up">
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <img src="img/webp/gui_preview.webp" width="1116" height="1578" alt="gui_preview" class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up" data-aos-duration="2000">
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <img src="img/webp/fileexplorer_dark.webp" width="1116" height="848" alt="fileexplorer_dark" class="img-fluid position-relative rounded-5 shadow" data-aos="fade-up" data-aos-duration="3000">
-      </div>
-    </div>
-  </div>
-</div>
-<div class="bg-dark">
-  <div class="container px-vw-5 py-vh-5">
-    <div class="row d-flex align-items-center">
-      <div class="col-12 col-lg-7 text-lg-end" data-aos="fade-right">
-        <span class="h5 text-secondary fw-lighter">What we do</span>
-        <h2 class="display-4">I'm a firm believer in open source software and the power of collaborative development. That's why I've made my application's source code available on Github for anyone to contribute to its improvement.</h2>
-      </div>
-      <div class="col-12 col-lg-5" data-aos="fade-left">
-        <h3 class="pt-5">Product Design</h3>
-        <p class="text-secondary">our product, has been developed with a sleek and intuitive design to provide the best possible user experience. We've designed the application with the user in mind, ensuring it's straightforward and effortless to use for everyone.<br>
-          <a href="#" class="link-fancy link-fancy-light me-2">Tell me more</a>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-</svg>
-</p>
-        <h3 class="border-top border-secondary pt-5 mt-5">Development & Engineering</h3>
-        <p class="text-secondary">EXIFrenameX was born out of a personal need. We had over 60,000 holiday photos and videos that needed to be sorted to create a holiday video. I quickly realised that manually renaming each file based on the date it was taken/created was not only time consuming, but also didn't make sense given the number of files. So I decided to develop EXIFrenameX, an application that automates the renaming process based on image and video metadata.<br>
-          <a href="#" class="link-fancy link-fancy-light me-2">Tell me more</a>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-</svg>
-</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="bg-black py-vh-3">
-  <div class="container bg-black px-vw-5 py-vh-3 rounded-5 shadow">
-
-  <div class="row gx-5">
-    <div class="col-12 col-md-6">
-      <div class="card bg-transparent mb-5" data-aos="zoom-in-up">
-        <div class="bg-dark shadow rounded-5 p-0">
-          <img src="img/webp/gui_fileexplorer_light.webp" width="582" height="327" alt="gui_fileexplorer_light" class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
-          <div class="p-5">
-            <h2 class="fw-lighter">select a folder</h2>
-            <p class="pb-4 text-secondary">Select the folder in which the unsorted photos and video files are located via "Browse".</p>
+  <!-- Hero Section -->
+  <header class="container-fluid py-5" style="padding-top:1rem; padding-bottom:2rem;">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 col-md-8 col-lg-6 text-center">
+        <div class="glass p-5">
+          <div class="hero-title">Effortless Batch Renaming<br>for Photos & Videos</div>
+          <div class="hero-sub">Automate file renaming using EXIF & metadata. No more chaos just clean, consistent filenames in seconds.</div>
+          <a href="https://github.com/Ch4r0ne/EXIFrenameX/releases/download/v4.0.0/EXIFrenameX.exe" class="btn btn-exif mb-2" download>
+            <svg width="24" height="24" style="margin-bottom:2px;margin-right:5px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+            Download for Windows (.exe)
+          </a>
+          <div class="text-secondary mt-3 small">
+            <span>Latest version: <b>v4.0.0</b> • <a class="github-link" href="https://github.com/Ch4r0ne/EXIFrenameX/releases" target="_blank">Changelog</a></span>
           </div>
         </div>
       </div>
+    </div>
+  </header>
 
-      <div class="card bg-transparent" data-aos="zoom-in-up">
-        <div class="bg-dark shadow rounded-5 p-0">
-          <img src="img/webp/gui_light.webp" width="582" height="442" alt="gui_light" class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
-          <div class="p-5">
-            <h2 class="fw-lighter">overview</h2>
-            <p class="pb-4 text-secondary">On the right side is a live preview that you can adjust until it is perfect. The left part contains the description of the format and the process as well as the button "Rename files".</p>
+  <!-- Showcase Slider -->
+  <section class="container py-5">
+    <div class="section-title text-center mb-4">See EXIFrenameX in Action</div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 col-md-10">
+        <div id="showcaseSlider" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active text-center">
+              <img src="img/webp/gui_fileexplorer_dark.webp" alt="Dark Fileexplorer Screenshot" class="showcase-img img-fluid">
+            </div>
+            <div class="carousel-item text-center">
+              <img src="img/webp/fileexplorer_dark.webp" alt="Fileexplorer Screenshot" class="showcase-img img-fluid">
+            </div>
           </div>
+        </div>
+        <div class="text-center text-secondary mt-2">Screenshots from EXIFrenameX v4.0.0 GUI</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="container py-5" id="features">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-12 col-lg-7">
+        <h2 class="section-title mb-3">Key Features</h2>
+        <ul class="feature-list">
+          <li>Batch rename thousands of photos/videos using EXIF & media metadata</li>
+          <li>Intuitive, modern GUI – no command-line needed</li>
+          <li>Preview filenames before renaming</li>
+          <li>Highly customizable format (prefix, suffix, date, sequence, original name)</li>
+          <li>Support for all major photo and video formats</li>
+          <li>Open Source • Fast • Portable</li>
+        </ul>
+        <a class="github-link" href="https://github.com/Ch4r0ne/EXIFrenameX" target="_blank">View on GitHub</a>
+      </div>
+      <div class="col-12 col-lg-5 mt-4 mt-lg-0">
+        <div class="release-box">
+          <div class="fw-bold text-white mb-2"><svg width="20" height="20" style="margin-bottom:3px;margin-right:5px;" fill="none" stroke="#36f1cd" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> Latest Release: <b>v4.0.0</b></div>
+          <div class="mb-2">• One-click Windows installer<br>• No admin rights required<br>• Portable, no setup needed</div>
+          <a href="https://github.com/Ch4r0ne/EXIFrenameX/releases/download/v4.0.0/EXIFrenameX.exe" class="btn btn-exif w-100" download>Download EXE</a>
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-6">
-      <div class="p-5 pt-0 mt-5" data-aos="fade">
-        <span class="h5 text-secondary fw-lighter">description</span>
-        <h2 class="display-4">Short description of how the app works</h2>
-      </div>
-      <div class="card bg-transparent mb-5 mt-5" data-aos="zoom-in-up">
-        <div class="bg-dark shadow rounded-5 p-0">
-          <img src="img/webp/gui_dropdown_light.webp" width="582" height="390" alt="gui_dropdown_light" class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
-          <div class="p-5">
-            <h2 class="fw-lighter">preview</h2>
-            <p class="pb-4 text-secondary">Select the format you want from the drop-down menu or create your own. For example, you can keep the original name and position it differently, or just add a prefix or suffix.</p>
-          </div>
-        </div>
-      </div>
+  </section>
 
-      <div class="card bg-transparent" data-aos="zoom-in-up">
-        <div class="bg-dark shadow rounded-5 p-0">
-          <img src="img/webp/fileexplorer_light.webp" width="582" height="327" alt="fileexplorer_light" class="img-fluid rounded-5 no-bottom-radius" loading="lazy">
-          <div class="p-5">
-            <h2 class="fw-lighter">file explorer</h2>
-            <p class="pb-4 text-secondary">Once you have completed the process, you will see the data sorted and listed clearly here.</p>
-          </div>
+  <!-- About / Motivation -->
+  <section class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 glass p-5">
+        <h2 class="section-title mb-3">Why EXIFrenameX?</h2>
+        <p class="lead">
+          As a system engineer handling global data and endless media chaos, I built EXIFrenameX for efficiency. After sorting 60,000+ media files for personal projects, it was clear: automation is key. That's why EXIFrenameX is <b>open source</b>, cleanly engineered and available for everyone.
+        </p>
+        <p>
+          <a class="github-link" href="https://github.com/Ch4r0ne/EXIFrenameX" target="_blank">Contribute on GitHub</a> – Collaboration is welcome!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="container-fluid border-top pt-4 pb-3 mt-5" style="background:#181c26;">
+    <div class="container text-center text-secondary">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-6 mb-3 mb-md-0 text-md-start">
+          <b>EXIFrenameX</b> by Tim Leinich • <span class="small">Proudly Open Source</span>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <a class="footer-link mx-2" href="mailto:admin@technetpro.de">Contact</a> |
+          <a class="footer-link mx-2" href="legal.html">legal</a> |
+          <a class="footer-link mx-2" href="impressum.html">Impressum</a>
         </div>
       </div>
     </div>
-  </div>
+  </footer>
 
-</div>
-
-
-</div>
-
-    </main>
-
-    <footer class="bg-black border-top border-dark">
-  <div class="container py-vh-4 text-secondary fw-lighter">
-    <div class="row">
-      <div class="col-12 col-lg-5 py-4 text-center text-lg-start">
-            <a class="navbar-brand pe-md-4 fs-4 col-12 col-md-auto text-center" href="index.html">
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stack" viewBox="0 0 16 16">
-    <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/>
-    <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/>
-  </svg>
-  <span class="ms-md-1 mt-1 fw-bolder me-md-5">EXIFrenameX</span>
-</a>
-
-      </div>
-      <div class="col border-end border-dark">
-
-      </div>
-          <div class="col">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a href="#" class="link-fancy link-fancy-light">About us</a>
-              </li>
-              <li class="nav-item">
-                <a href="mailto:admin@technetpro.de" class="link-fancy link-fancy-light">Contact</a>
-              </li>
-              <li class="nav-item">
-                  <a href="legal.html" class="link-fancy link-fancy-light">Legal</a>
-              </li>
-              <li class="nav-item">
-                <a href="impressum.html" class="link-fancy link-fancy-light">Impressum</a>
-              </li>
-            </ul>
-      </div>
-    </div>
-  </div>
-  <div class="container text-center small py-vh-2 border-top border-dark">Made by
-    <a href="https://templatedeck.com" class="link-fancy link-fancy-light" target="_blank">templatedeck.com</a>
-  </div>
-</footer>
-
-
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/aos.js"></script>
-<script>
-AOS.init({
- duration: 800, // values from 0 to 3000, with step 50ms
-});
-</script>
-<script>
-  let scrollpos = window.scrollY
-  const header = document.querySelector(".navbar")
-  const header_height = header.offsetHeight
-
-  const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm")
-  const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm")
-
-  window.addEventListener('scroll', function() {
-    scrollpos = window.scrollY;
-
-    if (scrollpos >= header_height) { add_class_on_scroll() }
-    else { remove_class_on_scroll() }
-
-    console.log(scrollpos)
-  })
-</script>
-
-  </body>
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
